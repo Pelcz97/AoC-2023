@@ -1,4 +1,3 @@
-use std::collections::HashMap;
 use crate::structs::game::Game;
 
 pub mod structs;
