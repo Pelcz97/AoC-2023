@@ -11,10 +11,7 @@ fn main() {
 }
 
 fn find_first_digit(line : String) -> Option<u32> {
-    for elem in line.chars() {
-        if elem.is_digit(10) {
-            return elem.to_digit(10);
-        }
-    }
-    return Option::None;
+    return line.chars()
+    .find(|c| c.is_digit(10))
+    .map(|c| c.to_digit(10).unwrap());
 }
