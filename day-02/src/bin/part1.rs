@@ -1,6 +1,4 @@
-use crate::structs::game::Game;
-
-pub mod structs;
+mod game;
 
 fn main() {
     let input = include_str!("./Input2.txt");
@@ -11,7 +9,7 @@ fn main() {
     let green = 13;    
     
     for line in lines {
-        let game = Game::from_line(String::from(line));
+        let game = game::Game::from_line(String::from(line));
         let max_red = game.plays.iter().map(|play|play.red).max().unwrap();
         let max_green = game.plays.iter().map(|play|play.green).max().unwrap();
         let max_blue = game.plays.iter().map(|play|play.blue).max().unwrap();

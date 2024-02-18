@@ -1,14 +1,9 @@
-struct Coordinates {
-    pub row: i32,
-    pub start_index: i32,
-    pub end_index: i32,
-    pub value: i32,
-}
+mod coordinates;
 
 fn main() {
     let input = include_str!("./Input3.txt");
     let lines: Vec<String> = input.lines().map(String::from).collect();
-    let mut coordinates: Vec<Coordinates> = vec![];
+    let mut coordinates: Vec<coordinates::Coordinates> = vec![];
     let mut result: i32 = 0;
 
     for (line_index, line) in lines.clone().into_iter().enumerate() {
@@ -24,7 +19,7 @@ fn main() {
                 current_value.push(character);
             } else {
                 if is_same_number {
-                    coordinates.push(Coordinates {
+                    coordinates.push(coordinates::Coordinates {
                         row: line_index as i32,
                         start_index: start_index as i32,
                         end_index: (index - 1) as i32,
@@ -36,7 +31,7 @@ fn main() {
             }
         }
         if is_same_number {
-            coordinates.push(Coordinates {
+            coordinates.push(coordinates::Coordinates {
                 row: line_index as i32,
                 start_index: start_index as i32,
                 end_index: (lines[0].len() - 1) as i32,
@@ -44,19 +39,15 @@ fn main() {
             });
         }
     }
-    let mut results_values = String::new();
     for coordinate in coordinates {
         if check_coordinate(&coordinate, &lines.clone()) {
-            results_values.push_str(&coordinate.value.to_string());
-            results_values.push(',');
         result += coordinate.value;
         }
     }
-    print!("{}", results_values);
     print!("{}", result);
 }
 
-fn check_coordinate(coordinate: &Coordinates, input: &Vec<String>) -> bool {
+fn check_coordinate(coordinate: &coordinates::Coordinates, input: &Vec<String>) -> bool {
     let mut result = false;
     for i in coordinate.start_index ..=coordinate.end_index {
         result |=  check(&input, i - 1, coordinate.row)
